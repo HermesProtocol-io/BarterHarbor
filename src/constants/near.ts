@@ -1,0 +1,1 @@
+export const THIRTY_TGAS = '30000000000000';

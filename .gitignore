@@ -145,3 +145,6 @@ dist-ssr
 .pnp.*
 *.local
 package-lock.json
+
+# Cloudflare 
+.dev.vars

@@ -23,7 +23,7 @@ const walletConnection = new WalletConnection(near, 'p2p-trade');
 
 export const nearConnect = async () => {
   walletConnection.requestSignIn({
-    successUrl: `${VITE_NEAR_CALLBACK_URL}/trade`,
+    successUrl: `${VITE_NEAR_CALLBACK_URL}/menu`,
     failureUrl: VITE_NEAR_CALLBACK_URL,
   });
 };

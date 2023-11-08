@@ -3,6 +3,7 @@ import './index.css';
 import React, { Suspense, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import logo from './assets/images/BartorHarborV2.png'
 
 import Button from './components/Button';
 import routes from './constants/routes';
@@ -63,14 +64,15 @@ const App = () => {
     },
   ]);
 
+
   return (
     <>
       <Suspense fallback=''>
         <section className='pb-0 antialiased overflow-x-hidden'>
           <div className='flex flex-row justify-between mx-auto max-w-7xl px-8 py-1'>
-          <h1 className='text-3xl font-bold text-gold'>BarterPoint by Hermes Protocol</h1>
+          <img src={logo} className="h-20 w-auto" alt={"logo"}/> 
           {!isWalletConnected && (
-            <div className=''>
+            <div className='flex items-center'>
                 <Button
                   onClick={() => {
                     nearConnect();
@@ -88,19 +90,21 @@ const App = () => {
           )}
 
           {isWalletConnected && (
-            <Button
-              onClick={() => {
-                nearDisconnect();
-                // setIsWalletConnected(false);  {wallet}
-              }}
-            >
-             Connected 
-             <span className="ml-4  relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-              </span>
-              
-            </Button>
+             <div className='flex items-center'>
+              <Button
+                onClick={() => {
+                  nearDisconnect();
+                  // setIsWalletConnected(false);  {wallet}
+                }}
+              >
+              Connected 
+              <span className="ml-4  relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </span>
+                
+              </Button>
+            </div>
           )}
           </div>
  

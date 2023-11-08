@@ -79,7 +79,7 @@ const P2PTradeProposalStart = ({
 
   return (
     <div className='m-auto max-w-7xl'>
-      <div className='xl:flex xl:space-x-24 items-center justify-end '>
+      <div className='xl:flex xl:space-x-24 items-center justify-center '>
         {/* <div className='my-8 xl:w-2/6'>
           <h2 className='font-semibold text-xsm mx-1 '>Blockchain</h2>
           <div className='my-2 '>

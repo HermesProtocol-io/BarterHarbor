@@ -84,9 +84,6 @@ export const P2PTrade = ({ wallet }: Props) => {
       <div className='relative flex items-center md:px-6 pb-8 lg:max-w-5xl 2xl:max-w-6xl'>
         <div className='px-2 md:px-0 center flex-col w-full'>
           <section className='flex flex-col w-full'>
-            <div className='flex justify-between items-center px-6'>
-              <h1 className='mt-2 mb-6'>P2P Trade</h1>
-            </div>
 
             <div className='2xl:px-6 px-2'>
               {showStep === P2PSteps.proposalStart && (

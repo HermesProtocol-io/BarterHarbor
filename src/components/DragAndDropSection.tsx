@@ -324,12 +324,10 @@ const DragAndDropSection = ({
                             {nft.name}
                           </small>
                         </div>
-                        <div className='mt-2 items-end justify-end'>
+                        <div className='mt-2 items-end justify-end relative'>
                           <img
                             alt={nft.name}
-                            className='m-auto rounded'
-                            width='55'
-                            height={'55'}
+                            className='m-auto rounded object-contain w-16 h-16'
                             src={nft.icon ?? nft.collectionIcon}
                           />
                         </div>

@@ -4,7 +4,8 @@ import { THIRTY_TGAS } from '../../constants/near';
 import { NFT, Token } from '../../types';
 
 const { connect, keyStores, WalletConnection } = nearAPI;
-const { VITE_ASSETS_CONTRACT, VITE_ESCROW_CONTRACT } = import.meta.env;
+const { VITE_ASSETS_CONTRACT, VITE_ESCROW_CONTRACT, VITE_NEAR_CALLBACK_URL } =
+  import.meta.env;
 
 const keyStore = new keyStores.BrowserLocalStorageKeyStore();
 
@@ -22,8 +23,8 @@ const walletConnection = new WalletConnection(near, 'p2p-trade');
 
 export const nearConnect = async () => {
   walletConnection.requestSignIn({
-    successUrl: 'http://localhost:3000/trade',
-    failureUrl: 'http://localhost:3000',
+    successUrl: `${VITE_NEAR_CALLBACK_URL}/menu`,
+    failureUrl: VITE_NEAR_CALLBACK_URL,
   });
 };
 

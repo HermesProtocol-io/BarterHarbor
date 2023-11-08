@@ -10,7 +10,7 @@ export default {
           semidark: "rgba(3,2,41, 0.4)",
           darksm: "rgba(3, 2, 41, 0.6)",
           semibold: "#010112d1",
-          medium: "#030229b3",
+          medium: "#030229",
           medium80: "#0c022980",
           dark: "#030229",
           lightmedium: "#A6A2A2",
@@ -129,9 +129,6 @@ export default {
         "1/8": "12.5%",
         "2/8": "25%",
         "5/8": "62.5%",
-      },
-      backgroundImage: {
-        avatar: "url('/src/assets/images/banner.jpg')",
       },
       animation: ["height"],
     },

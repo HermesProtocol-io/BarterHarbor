@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Button from './components/Button';
 import routes from './constants/routes';
 import { P2PTrade } from './pages/P2PTrade';
+import { Menu } from './pages/Menu';
 import {
   nearConnect,
   nearDisconnect,
@@ -50,7 +51,11 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <></>,
+      element: <></>
+    },
+    {
+      path: routes.MENU,
+      element: <Menu />,
     },
     {
       path: routes.TRADE,
@@ -62,33 +67,50 @@ const App = () => {
     <>
       <Suspense fallback=''>
         <section className='pb-0 antialiased overflow-x-hidden'>
-          <div className=' min-h-full w-screen items-start'>
-            <RouterProvider router={router} />
-          </div>
-
+          <div className='flex flex-row justify-between mx-auto max-w-7xl px-8 py-1'>
+          <h1 className='text-3xl font-bold text-gold'>BarterPoint by Hermes Protocol</h1>
           {!isWalletConnected && (
-            <Button
-              onClick={() => {
-                nearConnect();
-              }}
-            >
-              Connect Wallet
-            </Button>
+            <div className=''>
+                <Button
+                  onClick={() => {
+                    nearConnect();
+                  }}
+                >
+                
+                  Connect Wallet
+                  <span className="ml-4 flex h-3 w-3">
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-gray-500"></span>
+                  </span>
+                </Button>
+                      
+
+            </div>
           )}
 
           {isWalletConnected && (
             <Button
               onClick={() => {
                 nearDisconnect();
-                // setIsWalletConnected(false);
+                // setIsWalletConnected(false);  {wallet}
               }}
             >
-              {wallet}
+             Connected 
+             <span className="ml-4  relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              </span>
+              
             </Button>
           )}
+          </div>
+ 
         </section>
       </Suspense>
-      <h1 className='text-3xl font-bold underline'>Hermes Protocol</h1>
+
+     
+      <div className=' min-h-full items-start'>
+            <RouterProvider router={router} />
+      </div>
     </>
   );
 };

@@ -120,7 +120,7 @@ export const P2PTrade = ({ wallet }: Props) => {
                         );
                       }}
                     >
-                      Create
+                      Send Proposal
                     </Button>
                   </div>
                 </div>

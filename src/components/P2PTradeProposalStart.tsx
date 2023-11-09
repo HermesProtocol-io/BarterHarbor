@@ -121,7 +121,7 @@ const P2PTradeProposalStart = ({
                 onChange={checkAndSetTheirWalletAux}
                 name='proposedWallet'
                 id='proposedWallet'
-                placeholder='Write the proposed wallet address'
+                placeholder='Write the wallet address with whom you wish to trade with'
                 className={`focus:ring-0 height-50 focus:border-gray-extralight90medium focus:outline-none rounded w-full text-base h-12 p-3 border-gray-extralight90medium text-black-transparent50`}
               />
               {error && (

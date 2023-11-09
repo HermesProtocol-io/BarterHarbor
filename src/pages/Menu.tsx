@@ -1,6 +1,4 @@
 import Button from '../components/Button';
-import React from 'react';
-import { useNavigate } from "react-router-dom";
 
 export const Menu = () => {
 

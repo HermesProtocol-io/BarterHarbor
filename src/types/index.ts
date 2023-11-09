@@ -23,3 +23,10 @@ export type NFT = {
   collectionContract: string;
   collectionIcon: string;
 };
+
+export type MintbaseNFT = {
+  nft_contract_id: string;
+  title: string;
+  description: string;
+  media: string;
+}

@@ -6,7 +6,7 @@ export type Env = {
 
 export type Balance = {
   tokens: Token[];
-  nfts: NFT[] | MintbaseNFT[];
+  nfts: NFT[];
 };
 
 export type Token = {
@@ -18,16 +18,8 @@ export type Token = {
 };
 
 export type NFT = {
-  name: string;
-  icon: string;
-  tokenId: string;
-  collectionContract: string;
-  collectionIcon: string;
-};
-
-export type MintbaseNFT = {
   nft_contract_id: string;
   title: string;
   description: string;
   media: string;
-}
+};

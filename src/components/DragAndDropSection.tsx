@@ -9,7 +9,7 @@ import Button, {
   ButtonType,
 } from '../components/Button';
 import PopUp, { PopupSize } from '../components/Popup';
-import { Balance, MintbaseNFT, NFT, Token } from '../types';
+import { Balance, NFT, Token } from '../types';
 import { ScopeDragAndDrop } from '../types/enums/P2P';
 
 export type Props = {
@@ -46,7 +46,7 @@ const DragAndDropSection = ({
   const [tokensToSelect, setTokensToSelect] = useState<Balance>(tokens);
 
   // Down Grid
-  const [tokensToTrade, setTokensToTrade] = useState<(NFT | MintbaseNFT | Token)[]>([]);
+  const [tokensToTrade, setTokensToTrade] = useState<(NFT | Token)[]>([]);
 
   const [error, setError] = useState<boolean>(false);
   const [inputBalance, setInputBalance] = useState<string>('');
@@ -79,7 +79,7 @@ const DragAndDropSection = ({
   };
 
   // Handle after click on NFT
-  const handleNftClicked = (nft: NFT | MintbaseNFT) => {
+  const handleNftClicked = (nft: NFT) => {
     if (!tokensToTrade.find((t) => t === nft)) {
       setTokensToTrade([...tokensToTrade, nft]);
       setTokensToSelect({
@@ -290,7 +290,7 @@ const DragAndDropSection = ({
         </section>
 
         {/* Filter Display */}
-        <section className='bg-white rounded-xl px-1 py-2 my-8 shadow-icons overflow-auto  h-96'>
+        <section className='bg-white rounded-xl px-1 py-2 my-8 shadow-icons overflow-y-auto  h-96'>
           <div className='flex px-4 py-1 justify-between '>
             <div className='flex items-center align-middle '>
               <span className='mr-1 text-lg'>{scopeTrade}</span>
@@ -305,72 +305,70 @@ const DragAndDropSection = ({
           </div>
 
           {/* Top Grid */}
-          <div className='flex flex-wrap justify-start 2xl:px-5 px-2 py-2 '>
-            <div className={`flex flex-wrap `}>
-              {(scopeTrade === ScopeDragAndDrop.all ||
-                scopeTrade === ScopeDragAndDrop.nft) &&
-                tokensToSelect?.nfts?.map((nft: NFT | MintbaseNFT, i: number) => {
-                  return (
-                    <div
-                      key={Math.random() * 1.5 + i}
-                      onClick={() => handleNftClicked(nft)}
-                      className={
-                        'bg-gray-extralight20 border xl:w-32 w-28 h-24 hover:border-gold transform-gpu hover:scale-105 transition-all rounded-xl mx-2.5 mb-4 py-2 px-1.5 cursor-pointer shadow'
-                      }
-                    >
-                      <div className='flex-col'>
-                        <div className='flex items-center justify-center'>
-                          <small className='text-xxxxsm text-center font-bold'>
-                            {nft.name?? nft.title}
-                          </small>
-                        </div>
-                        <div className='mt-2 items-end justify-end relative'>
-                          <img
-                            alt={nft.name?? nft.title}
-                            className='m-auto rounded object-contain w-16 h-16'
-                            src={nft.icon ?? nft.collectionIcon?? nft.media}
-                          />
-                        </div>
+          <div className='grid grid-flow-row grid-cols-2 place-content-center justify-center 2xl:px-5 px-2 py-2 '>
+            {(scopeTrade === ScopeDragAndDrop.all ||
+              scopeTrade === ScopeDragAndDrop.nft) &&
+              tokensToSelect?.nfts?.map((nft: NFT, i: number) => {
+                return (
+                  <div
+                    key={Math.random() * 1.5 + i}
+                    onClick={() => handleNftClicked(nft)}
+                    className={
+                      'bg-gray-extralight20 border xl:w-32 w-28 h-30 hover:border-gold transform-gpu hover:scale-105 transition-all rounded-xl mx-2.5 my-2 py-2 px-1.5 cursor-pointer shadow'
+                    }
+                  >
+                    <div className=' justify-between'>
+                      <div className='flex items-center justify-center'>
+                        <small className='text-xxxxsm text-center font-bold'>
+                          {nft.title}
+                        </small>
+                      </div>
+                      <div className='mt-2 items-end justify-end relative'>
+                        <img
+                          alt={nft.title}
+                          className='m-auto rounded object-contain w-20 h-20'
+                          src={nft.media}
+                        />
                       </div>
                     </div>
-                  );
-                })}
+                  </div>
+                );
+              })}
 
-              {(scopeTrade === ScopeDragAndDrop.all ||
-                scopeTrade === ScopeDragAndDrop.token) &&
-                tokensToSelect?.tokens?.map((token: Token, i: number) => {
-                  return (
-                    !tokensToTrade.find((t) => t === token) && (
-                      <div
-                        key={Math.random() * 1.5 + i}
-                        onClick={() => handleTokenClicked(token)}
-                        className={`  ${
-                          loading && ' opacity-0 '
-                        }   bg-gray-extralight20 xl:w-32 w-30 w-28 h-24 border hover:border-gold transform-gpu hover:scale-105 transition-all mx-2.5 rounded-xl mb-4 py-2 px-1.5 cursor-pointer shadow`}
-                      >
-                        <div className='flex justify-between '>
-                          <small className='font-bold text-xxxsm'>
-                            {getNumberFormatted(token.balance, token.decimals)}
-                          </small>
-                          <small className='text-xxxsm font-bold'>
-                            {token.symbol}
-                          </small>
-                        </div>
-
-                        <div className='mt-1 flex '>
-                          <img
-                            alt={token.symbol ?? token.contract}
-                            className='m-auto'
-                            width='55'
-                            height={'55'}
-                            src={token.icon || '🚫'}
-                          />
-                        </div>
+            {(scopeTrade === ScopeDragAndDrop.all ||
+              scopeTrade === ScopeDragAndDrop.token) &&
+              tokensToSelect?.tokens?.map((token: Token, i: number) => {
+                return (
+                  !tokensToTrade.find((t) => t === token) && (
+                    <div
+                      key={Math.random() * 1.5 + i}
+                      onClick={() => handleTokenClicked(token)}
+                      className={`  ${
+                        loading && ' opacity-0 '
+                      }   bg-gray-extralight20 border xl:w-32 w-28 h-30 hover:border-gold transform-gpu hover:scale-105 transition-all mx-2.5 rounded-xl my-2 py-2 px-1.5 cursor-pointer shadow`}
+                    >
+                      <div className='flex justify-between '>
+                        <small className='font-bold text-xxxsm'>
+                          {getNumberFormatted(token.balance, token.decimals)}
+                        </small>
+                        <small className='text-xxxsm font-bold'>
+                          {token.symbol}
+                        </small>
                       </div>
-                    )
-                  );
-                })}
-            </div>
+
+                      <div className='mt-1 flex'>
+                        <img
+                          alt={token.symbol ?? token.contract}
+                          className='m-auto'
+                          width='55'
+                          height={'55'}
+                          src={token.icon || '🚫'}
+                        />
+                      </div>
+                    </div>
+                  )
+                );
+              })}
           </div>
         </section>
 
@@ -380,7 +378,7 @@ const DragAndDropSection = ({
             <div className='flex flex-wrap justify-start 2xl:px-5 px-2 py-2'>
               <div className={`flex flex-wrap`}>
                 {tokensToTrade &&
-                  tokensToTrade.map((t: Token | NFT | MintbaseNFT, index) => {
+                  tokensToTrade.map((t: Token | NFT, index) => {
                     return (
                       <div
                         key={Math.random() * 1.5 + index}
@@ -392,9 +390,9 @@ const DragAndDropSection = ({
                           <FontAwesomeIcon
                             className='text-gray-500 opacity-25 hover:opacity-100 transition-all'
                             onClick={() => {
-                              return 'collectionIcon' in t
-                                ? handleNftClicked(t)
-                                : handleTokenClicked(t);
+                              return 'balance' in t
+                                ? handleTokenClicked(t)
+                                : handleNftClicked(t);
                             }}
                             icon={faTrash}
                           />
@@ -409,12 +407,12 @@ const DragAndDropSection = ({
                             )}
 
                             <small className='text-xxxxsm text-center font-bold'>
-                              {'name' in t ? t.name : t.symbol}
+                              { t.title?? t.symbol }
                             </small>
                           </div>
                           <div className='items-end justify-start flex-col'>
                             <img
-                              alt={'name' in t ? t.name : t.symbol}
+                              alt={ t.title?? t.symbol }
                               className='m-auto rounded'
                               width='55'
                               height={'55'}
@@ -430,8 +428,7 @@ const DragAndDropSection = ({
                                  */
                                 
                                 (t as Token).icon??
-                                (t as NFT).collectionIcon??
-                                (t as MintbaseNFT).media??
+                                (t as NFT).media??
                                 '🚫'
                               }
                             />

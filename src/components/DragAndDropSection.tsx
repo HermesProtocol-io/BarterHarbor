@@ -9,7 +9,7 @@ import Button, {
   ButtonType,
 } from '../components/Button';
 import PopUp, { PopupSize } from '../components/Popup';
-import { Balance, NFT, Token } from '../types';
+import { Balance, MintbaseNFT, NFT, Token } from '../types';
 import { ScopeDragAndDrop } from '../types/enums/P2P';
 
 export type Props = {
@@ -46,7 +46,7 @@ const DragAndDropSection = ({
   const [tokensToSelect, setTokensToSelect] = useState<Balance>(tokens);
 
   // Down Grid
-  const [tokensToTrade, setTokensToTrade] = useState<(NFT | Token)[]>([]);
+  const [tokensToTrade, setTokensToTrade] = useState<(NFT | MintbaseNFT | Token)[]>([]);
 
   const [error, setError] = useState<boolean>(false);
   const [inputBalance, setInputBalance] = useState<string>('');
@@ -79,7 +79,7 @@ const DragAndDropSection = ({
   };
 
   // Handle after click on NFT
-  const handleNftClicked = (nft: NFT) => {
+  const handleNftClicked = (nft: NFT | MintbaseNFT) => {
     if (!tokensToTrade.find((t) => t === nft)) {
       setTokensToTrade([...tokensToTrade, nft]);
       setTokensToSelect({
@@ -304,12 +304,12 @@ const DragAndDropSection = ({
             </div>
           </div>
 
-          {/* Up Grid */}
+          {/* Top Grid */}
           <div className='flex flex-wrap justify-start 2xl:px-5 px-2 py-2 '>
             <div className={`flex flex-wrap `}>
               {(scopeTrade === ScopeDragAndDrop.all ||
                 scopeTrade === ScopeDragAndDrop.nft) &&
-                tokensToSelect?.nfts?.map((nft: NFT, i: number) => {
+                tokensToSelect?.nfts?.map((nft: NFT | MintbaseNFT, i: number) => {
                   return (
                     <div
                       key={Math.random() * 1.5 + i}
@@ -321,14 +321,14 @@ const DragAndDropSection = ({
                       <div className='flex-col'>
                         <div className='flex items-center justify-center'>
                           <small className='text-xxxxsm text-center font-bold'>
-                            {nft.name}
+                            {nft.name?? nft.title}
                           </small>
                         </div>
                         <div className='mt-2 items-end justify-end relative'>
                           <img
-                            alt={nft.name}
+                            alt={nft.name?? nft.title}
                             className='m-auto rounded object-contain w-16 h-16'
-                            src={nft.icon ?? nft.collectionIcon}
+                            src={nft.icon ?? nft.collectionIcon?? nft.media}
                           />
                         </div>
                       </div>
@@ -374,13 +374,13 @@ const DragAndDropSection = ({
           </div>
         </section>
 
-        {/* Down Grid */}
+        {/* Bottom Grid */}
         <div className={` relative `}>
           <section className='bg-white rounded-xl px-1 py-2 my-8 shadow-icons overflow-hidden h-96'>
             <div className='flex flex-wrap justify-start 2xl:px-5 px-2 py-2'>
               <div className={`flex flex-wrap`}>
                 {tokensToTrade &&
-                  tokensToTrade.map((t: Token | NFT, index) => {
+                  tokensToTrade.map((t: Token | NFT | MintbaseNFT, index) => {
                     return (
                       <div
                         key={Math.random() * 1.5 + index}
@@ -419,11 +419,20 @@ const DragAndDropSection = ({
                               width='55'
                               height={'55'}
                               src={
-                                'icon' in t
-                                  ? t.icon
-                                  : 'collectionIcon' in t
-                                  ? (t as NFT).collectionIcon
-                                  : '🚫'
+                                /*
+                                'icon' in t?
+                                  t.icon
+                                :
+                                  'collectionIcon' in t?
+                                    (t as NFT).collectionIcon
+                                  :
+                                    (t as MintbaseNFT).media?? '🚫'
+                                 */
+                                
+                                (t as Token).icon??
+                                (t as NFT).collectionIcon??
+                                (t as MintbaseNFT).media??
+                                '🚫'
                               }
                             />
                           </div>

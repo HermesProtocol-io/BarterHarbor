@@ -1,11 +1,12 @@
 export type Env = {
   PAGODA_API_URL: string;
   PAGODA_API_KEY: string;
+  MINTBASE_GRAPH_URL: string;
 }
 
 export type Balance = {
   tokens: Token[];
-  nfts: NFT[];
+  nfts: NFT[] | MintbaseNFT[];
 };
 
 export type Token = {
@@ -23,3 +24,10 @@ export type NFT = {
   collectionContract: string;
   collectionIcon: string;
 };
+
+export type MintbaseNFT = {
+  nft_contract_id: string;
+  title: string;
+  description: string;
+  media: string;
+}

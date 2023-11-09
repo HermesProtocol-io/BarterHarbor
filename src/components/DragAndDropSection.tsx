@@ -305,7 +305,7 @@ const DragAndDropSection = ({
           </div>
 
           {/* Top Grid */}
-          <div className='grid grid-flow-row grid-cols-2 place-content-center justify-center 2xl:px-5 px-2 py-2 '>
+          <div className='grid grid-flow-row grid-cols-2 xl:grid-cols-3 place-content-center justify-center 2xl:px-5 px-2 py-2 '>
             {(scopeTrade === ScopeDragAndDrop.all ||
               scopeTrade === ScopeDragAndDrop.nft) &&
               tokensToSelect?.nfts?.map((nft: NFT, i: number) => {
@@ -345,9 +345,9 @@ const DragAndDropSection = ({
                       onClick={() => handleTokenClicked(token)}
                       className={`  ${
                         loading && ' opacity-0 '
-                      }   bg-gray-extralight20 border xl:w-32 w-28 h-30 hover:border-gold transform-gpu hover:scale-105 transition-all mx-2.5 rounded-xl my-2 py-2 px-1.5 cursor-pointer shadow`}
+                      }   bg-gray-extralight20 flex flex-col border xl:w-32 w-28 h-[130px] hover:border-gold transform-gpu hover:scale-105 transition-all rounded-xl mx-2.5 my-2 py-2 px-1.5 cursor-pointer shadow`}
                     >
-                      <div className='flex justify-between '>
+                      <div className='flex w-full justify-around'>
                         <small className='font-bold text-xxxsm'>
                           {getNumberFormatted(token.balance, token.decimals)}
                         </small>
@@ -356,7 +356,7 @@ const DragAndDropSection = ({
                         </small>
                       </div>
 
-                      <div className='mt-1 flex'>
+                      <div className='mt-1 flex flex-grow'>
                         <img
                           alt={token.symbol ?? token.contract}
                           className='m-auto'

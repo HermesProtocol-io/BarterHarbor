@@ -1,8 +1,8 @@
-import { MintbaseNFT } from '../../types';
 import { handleJsonRequest } from '..';
+import { NFT } from '../../types';
 const MINTBASE_GRAPH_URL = "https://graph.mintbase.xyz/testnet";
 
-export async function getNFTsBalances(account: string): Promise<MintbaseNFT[]> {
+export async function getNFTsBalances(account: string): Promise<NFT[]> {
     try {
         const graphQL = JSON.stringify({
             query: `

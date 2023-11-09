@@ -419,11 +419,9 @@ const DragAndDropSection = ({
                               width='55'
                               height={'55'}
                               src={
-                                'icon' in t
-                                  ? t.icon
-                                  : 'collectionIcon' in t
-                                  ? (t as NFT).collectionIcon
-                                  : '🚫'
+                                (t as Token).icon??
+                                (t as NFT).media??
+                                '🚫'
                               }
                             />
                           </div>

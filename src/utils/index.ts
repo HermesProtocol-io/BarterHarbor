@@ -1,10 +1,17 @@
 import { Balance } from '../types';
+import { getNFTsBalances } from './near/mintbase';
 
 export async function getBalances(
   account: string,
 ): Promise<Balance | undefined> {
   try {
-    return await fetch(`api/all-balances/${account}`).then((r) => handleJsonRequest(r, 1));
+    const tokens = await fetch(`api/token-balances/${account}`).then((r) => handleJsonRequest(r, 1));
+    const nfts = await getNFTsBalances(account);
+
+    return {
+      tokens,
+      nfts
+    }
   } catch (error) {
     return undefined;
   }

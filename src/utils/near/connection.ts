@@ -18,23 +18,31 @@ const config = {
 };
 
 // connect to NEAR
-const near = await connect({ keyStore, ...config });
-const walletConnection = new WalletConnection(near, 'p2p-trade');
+const near = connect({ keyStore, ...config });
+
+let walletConn: nearAPI.WalletConnection | undefined;
+const walletConnection = async() => {
+  if (!walletConn) {
+    walletConn = new WalletConnection(await near, 'p2p-trade');
+  }
+  return walletConn;
+}
+// const walletConnection = new WalletConnection(near, 'p2p-trade');
 
 export const nearConnect = async () => {
-  walletConnection.requestSignIn({
+  (await walletConnection()).requestSignIn({
     successUrl: `${VITE_NEAR_CALLBACK_URL}/menu`,
     failureUrl: VITE_NEAR_CALLBACK_URL,
   });
 };
 
-export const nearDisconnect = () => {
-  walletConnection.signOut();
+export const nearDisconnect = async () => {
+  (await walletConnection()).signOut();
   window.location.replace('/');
 };
 
 export const nearGetBalance = async () => {
-  const account = walletConnection.account();
+  const account = (await walletConnection()).account();
   const balance = await account.getAccountBalance();
   return balance;
 };
@@ -63,5 +71,5 @@ export const purchaseInEscrow = async (
     ],
   };
 
-  await walletConnection.account().signAndSendTransaction(purchase);
+  await (await walletConnection()).account().signAndSendTransaction(purchase);
 };

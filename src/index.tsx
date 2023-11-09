@@ -92,8 +92,8 @@ const App = () => {
           {isWalletConnected && (
              <div className='flex items-center'>
               <Button
-                onClick={() => {
-                  nearDisconnect();
+                onClick={async () => {
+                  await nearDisconnect();
                   // setIsWalletConnected(false);  {wallet}
                 }}
               >

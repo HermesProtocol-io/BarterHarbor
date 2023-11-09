@@ -13,12 +13,15 @@ import {
   nearConnect,
   nearDisconnect,
   nearGetBalance,
+  nearInit,
 } from './utils/near/connection';
 
 const App = () => {
   const [isWalletConnected, setIsWalletConnected] = useState(
     !!localStorage.getItem('p2p-trade_wallet_auth_key') ?? false,
   );
+    
+  nearInit().then(() => setIsWalletConnected(!!localStorage.getItem('p2p-trade_wallet_auth_key') ?? isWalletConnected));
 
   const [wallet, setWallet] = useState('');
   const [balance, setBalance] = useState<any>();

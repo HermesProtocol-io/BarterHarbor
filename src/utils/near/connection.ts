@@ -29,6 +29,10 @@ const walletConnection = async() => {
 }
 // const walletConnection = new WalletConnection(near, 'p2p-trade');
 
+export const nearInit = async () => {
+  await walletConnection();
+}
+
 export const nearConnect = async () => {
   (await walletConnection()).requestSignIn({
     successUrl: `${VITE_NEAR_CALLBACK_URL}/menu`,
